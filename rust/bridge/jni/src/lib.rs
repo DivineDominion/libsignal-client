@@ -1753,7 +1753,6 @@ pub unsafe extern "C" fn Java_org_signal_client_internal_Native_SenderCertificat
     signer_key: ObjectHandle,
 ) -> ObjectHandle {
     run_ffi_safe(&env, || {
-
         let sender_uuid: Option<String> = if sender_uuid.is_null() {
             None
         } else {
@@ -1783,7 +1782,8 @@ pub unsafe extern "C" fn Java_org_signal_client_internal_Native_SenderCertificat
             expiration,
             signer_cert.clone(),
             signer_key,
-            &mut rng)?;
+            &mut rng,
+        )?;
 
         box_object::<SenderCertificate>(Ok(sc))
     })
