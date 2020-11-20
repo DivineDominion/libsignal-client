@@ -1713,7 +1713,8 @@ pub unsafe extern "C" fn signal_unidentified_sender_message_content_new(
             )),
         }?;
 
-        let usmc = UnidentifiedSenderMessageContent::new(msg_type, sender.clone(), contents.to_vec())?;
+        let usmc =
+            UnidentifiedSenderMessageContent::new(msg_type, sender.clone(), contents.to_vec())?;
         box_object::<UnidentifiedSenderMessageContent>(obj, Ok(usmc))
     })
 }
@@ -1743,7 +1744,11 @@ pub unsafe extern "C" fn signal_unidentified_sender_message_new(
         let encrypted_message = as_slice(encrypted_message, encrypted_message_len)?;
         let public_key = native_handle_cast::<PublicKey>(public_key)?;
 
-        let usm = UnidentifiedSenderMessage::new(*public_key, encrypted_static.to_vec(), encrypted_message.to_vec())?;
+        let usm = UnidentifiedSenderMessage::new(
+            *public_key,
+            encrypted_static.to_vec(),
+            encrypted_message.to_vec(),
+        )?;
         box_object::<UnidentifiedSenderMessage>(obj, Ok(usm))
     })
 }
@@ -1799,7 +1804,8 @@ pub unsafe extern "C" fn signal_sealed_session_cipher_decrypt(
     identity_store: *const FfiIdentityKeyStoreStruct,
     session_store: *const FfiSessionStoreStruct,
     prekey_store: *const FfiPreKeyStoreStruct,
-    signed_prekey_store: *const FfiSignedPreKeyStoreStruct) -> *mut SignalFfiError {
+    signed_prekey_store: *const FfiSignedPreKeyStoreStruct,
+) -> *mut SignalFfiError {
     run_ffi_safe(|| {
         let ctext = as_slice(ctext, ctext_len)?;
         let trust_root = native_handle_cast::<PublicKey>(trust_root)?;

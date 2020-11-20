@@ -322,7 +322,9 @@ pub unsafe fn read_c_string(cstr: *const c_char) -> Result<String, SignalFfiErro
     }
 }
 
-pub unsafe fn read_optional_c_string(cstr: *const c_char) -> Result<Option<String>, SignalFfiError> {
+pub unsafe fn read_optional_c_string(
+    cstr: *const c_char,
+) -> Result<Option<String>, SignalFfiError> {
     if cstr.is_null() {
         return Ok(None);
     }
