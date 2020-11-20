@@ -1654,11 +1654,12 @@ pub unsafe extern "C" fn signal_sender_certificate_preferred_address(
     obj: *mut *mut ProtocolAddress,
     cert: *const SenderCertificate,
     session_store: *const FfiSessionStoreStruct,
+    ctx: *mut c_void,
 ) -> *mut SignalFfiError {
     run_ffi_safe(|| {
         let cert = native_handle_cast::<SenderCertificate>(cert)?;
         let session_store = FfiSessionStore::new(session_store)?;
-        let address = expect_ready(cert.preferred_address(&session_store, None))?;
+        let address = expect_ready(cert.preferred_address(&session_store, Some(ctx)))?;
         box_object::<ProtocolAddress>(obj, Ok(address))
     })
 }
@@ -1763,6 +1764,7 @@ pub unsafe extern "C" fn signal_sealed_session_cipher_encrypt(
     ptext_len: size_t,
     session_store: *const FfiSessionStoreStruct,
     identity_key_store: *const FfiIdentityKeyStoreStruct,
+    ctx: *mut c_void,
 ) -> *mut SignalFfiError {
     run_ffi_safe(|| {
         let destination = native_handle_cast::<ProtocolAddress>(destination)?;
@@ -1780,7 +1782,7 @@ pub unsafe extern "C" fn signal_sealed_session_cipher_encrypt(
             &ptext,
             &mut session_store,
             &mut identity_store,
-            None,
+            Some(ctx),
             &mut rng,
         ))?;
         write_bytearray_to(out, out_len, Ok(ctext))
@@ -1805,6 +1807,7 @@ pub unsafe extern "C" fn signal_sealed_session_cipher_decrypt(
     session_store: *const FfiSessionStoreStruct,
     prekey_store: *const FfiPreKeyStoreStruct,
     signed_prekey_store: *const FfiSignedPreKeyStoreStruct,
+    ctx: *mut c_void,
 ) -> *mut SignalFfiError {
     run_ffi_safe(|| {
         let ctext = as_slice(ctext, ctext_len)?;
@@ -1828,7 +1831,7 @@ pub unsafe extern "C" fn signal_sealed_session_cipher_decrypt(
             &mut session_store,
             &mut prekey_store,
             &mut signed_prekey_store,
-            None,
+            Some(ctx),
         ))?;
 
         write_optional_cstr_to(sender_e164, Ok(decrypted.sender_e164))?;
