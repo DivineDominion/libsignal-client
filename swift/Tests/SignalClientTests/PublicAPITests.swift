@@ -345,25 +345,25 @@ class PublicAPITests: XCTestCase {
           0x31, 0x35, 0x39, 0x38, 0x37, 0x33, 0x33, 0x66, 0x12, 0x40, 0x06, 0x8b, 0xf0, 0xc5, 0xe8, 0x99, 0x83, 0x81, 0x28, 0xbd,
           0x36, 0xd9, 0x2b, 0x01, 0xec, 0xa9, 0x95, 0x9d, 0x00, 0xf2, 0xdb, 0x0b, 0xcb, 0xb6, 0x8b, 0x2a, 0x62, 0xd4, 0xdf, 0x46,
           0xdb, 0xb4, 0x50, 0x14, 0x9e, 0x9d, 0xcb, 0xc6, 0xbd, 0xdb, 0x2b, 0x28, 0x98, 0xfc, 0xd5, 0xff, 0x5c, 0xaf, 0x1b, 0x8c,
-          0xf7, 0x2b, 0x36, 0xff, 0xfe, 0x2f, 0x55, 0xf3, 0xec, 0xeb, 0xab, 0x25, 0x47, 0x88];
+          0xf7, 0x2b, 0x36, 0xff, 0xfe, 0x2f, 0x55, 0xf3, 0xec, 0xeb, 0xab, 0x25, 0x47, 0x88]
 
-        let senderCert = try! SenderCertificate(senderCertBits);
+        let senderCert = try! SenderCertificate(senderCertBits)
 
-        XCTAssertEqual(try! senderCert.serialize(), senderCertBits);
-        XCTAssertEqual(try! senderCert.expiration(), 1605722925);
+        XCTAssertEqual(try! senderCert.serialize(), senderCertBits)
+        XCTAssertEqual(try! senderCert.expiration(), 1605722925)
 
-        XCTAssertEqual(try! senderCert.deviceId(), 42);
+        XCTAssertEqual(try! senderCert.deviceId(), 42)
 
-        XCTAssertEqual(try! senderCert.publicKey().serialize().count, 33);
+        XCTAssertEqual(try! senderCert.publicKey().serialize().count, 33)
 
-        XCTAssertEqual(try! senderCert.senderUuid(), Optional("9d0652a3-dcc3-4d11-975f-74d61598733f"));
+        XCTAssertEqual(try! senderCert.senderUuid(), Optional("9d0652a3-dcc3-4d11-975f-74d61598733f"))
         XCTAssertEqual(try! senderCert.senderE164(), Optional("+14152222222"))
 
-        let serverCert = try! senderCert.serverCertificate();
+        let serverCert = try! senderCert.serverCertificate()
 
-        XCTAssertEqual(try! serverCert.keyId(), 1);
-        XCTAssertEqual(try! serverCert.publicKey().serialize().count, 33);
-        XCTAssertEqual(try! serverCert.signatureBytes().count, 64);
+        XCTAssertEqual(try! serverCert.keyId(), 1)
+        XCTAssertEqual(try! serverCert.publicKey().serialize().count, 33)
+        XCTAssertEqual(try! serverCert.signatureBytes().count, 64)
     }
 
     static var allTests: [(String, (PublicAPITests) -> () throws -> Void)] {

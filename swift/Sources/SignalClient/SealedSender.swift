@@ -59,7 +59,6 @@ public class ServerCertificate: ClonableHandleOwner {
     }
 }
 
-
 public class SenderCertificate: ClonableHandleOwner {
     public init<Bytes: ContiguousBytes>(_ bytes: Bytes) throws {
         let handle: OpaquePointer? = try bytes.withUnsafeBytes {
@@ -139,7 +138,7 @@ public class SenderCertificate: ClonableHandleOwner {
         }
     }
 
-    // FIXME missing signal_sender_certificate_preferred_address (is it needed?)
+    // Is signal_sender_certificate_preferred_address logic needed on iOS?
 }
 
 public func sealedSenderEncrypt<Bytes: ContiguousBytes>(message: Bytes,
