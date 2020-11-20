@@ -1728,7 +1728,7 @@ ffi_fn_get_bytearray!(signal_unidentified_sender_message_get_serialized(Unidenti
 ffi_fn_get_bytearray!(signal_unidentified_sender_message_get_encrypted_message(UnidentifiedSenderMessage) using UnidentifiedSenderMessage::encrypted_message);
 ffi_fn_get_bytearray!(signal_unidentified_sender_message_get_encrypted_static(UnidentifiedSenderMessage) using UnidentifiedSenderMessage::encrypted_static);
 
-ffi_fn_get_new_boxed_obj!(signal_unidentified_sender_message_get_EphemeralPublic(PublicKey) from UnidentifiedSenderMessage,
+ffi_fn_get_new_boxed_obj!(signal_unidentified_sender_message_get_ephemeral_public(PublicKey) from UnidentifiedSenderMessage,
                           UnidentifiedSenderMessage::ephemeral_public);
 
 #[no_mangle]
